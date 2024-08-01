@@ -2,7 +2,8 @@ package Application.Repository;
 
 import Application.Model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -85,5 +86,11 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     /**
      * TODO: Retrieve books by their dateAdded OR their lastDateWithdrawn.
      */
+    Book findBookByTitle(String title);
+
+    List<Book> findBooksByAvailable(boolean available);
+
+    @Query("SELECT b FROM Book b WHERE b.dateAdded = :timestamp OR b.lastDateWithdrawn = :timestamp")
+    List<Book> findBooksByDateAddedOrLastDateWithdrawn(@Param("timestamp") Timestamp timestamp);
 
 }

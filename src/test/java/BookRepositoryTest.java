@@ -145,19 +145,20 @@ public class BookRepositoryTest {
 
     @Test
     public void testFindBooksByDateAddedOrLastDateWithdrawn() throws InvocationTargetException, IllegalAccessException {
-        if(m1==null){
+        if(m3==null){
             Assertions.fail("You haven't written the get by date added or last date withdrawn query yet.");
         }
         // Create a book with a specific dateAdded and lastDateWithdrawn
-        Timestamp dateAdded = new Timestamp(System.currentTimeMillis());
-        Timestamp lastDateWithdrawn = new Timestamp(System.currentTimeMillis());
+        //Timestamp dateAdded = new Timestamp(System.currentTimeMillis());
+        //Timestamp lastDateWithdrawn = new Timestamp(System.currentTimeMillis());
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Book book = new Book();
-        book.setDateAdded(dateAdded);
-        book.setLastDateWithdrawn(lastDateWithdrawn);
+        book.setDateAdded(timestamp);
+        book.setLastDateWithdrawn(timestamp);
         bookRepository.save(book);
 
         // Retrieve books by dateAdded or lastDateWithdrawn
-        List<Book> foundBooks = (List<Book>) m3.invoke(bookRepository, dateAdded, lastDateWithdrawn);
+        List<Book> foundBooks = (List<Book>) m3.invoke(bookRepository, timestamp);
 
         // Assert that the list of found books is not empty and contains the correct book
         Assertions.assertFalse(foundBooks.isEmpty());
